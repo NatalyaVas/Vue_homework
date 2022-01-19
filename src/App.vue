@@ -7,14 +7,14 @@
         <button @click="increase(2, $event)">Increase</button>
         <button @click="resetCounter">Reset Counter</button>
     {{ counter }}
-    <label for="test">test
-      <input
-        id="test"
-        type="text"
-        @blur="blur"
-        @focus="focus"
-      >
-    </label>
+<!--    <label for="test">test-->
+<!--      <input-->
+<!--        id="test"-->
+<!--        type="text"-->
+<!--        @blur="blur"-->
+<!--        @focus="focus"-->
+<!--      >-->
+<!--    </label>-->
     <CalculatorComp/>
   </div>
 </template>
