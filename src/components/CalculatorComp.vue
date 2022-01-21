@@ -4,29 +4,8 @@
       <input id="op1" type="number" v-model.number="op1">
       <input id="op2" type="number" v-model.number="op2">
       = {{ result }} <br/>
-      Fibonacci-1 =  {{ fib1 }}<br/>
-      Fibonacci-2 =  {{ fib2() }}<br/>
-    </div>
-<!--    <div class="error" v-if="error">-->
-<!--      Ошибка: {{ error }}-->
-<!--    </div>-->
-    <div class="error" v-show="error">
-      Ошибка: {{ error }}
-    </div>
-    <div class="messages">
-      <template v-if="result < 0">Отрицательный результат</template>
-      <template v-else-if="result < 100">Результат в первой сотне</template>
-      <template v-else>Простое условие</template>
     </div>
     <div class="keyboard">
-<!--      <button @click="result = op1 + op2">+</button>-->
-<!--      <button @click="calculate('+')">+</button>-->
-<!--      <button @click="calculate('-')">-</button>-->
-<!--      <button @click="calculate('/')">/</button>-->
-<!--      <button @click="calculate('*')">*</button>-->
-<!--      <div v-for="(item, index) in collection" :key="item">-->
-<!--        {{ index }} - {{ item }}-->
-<!--      </div>-->
       <button
         v-for="operator in operators"
         @click="calculate(operator)"
@@ -36,8 +15,26 @@
         {{ operator }}
       </button>
     </div>
-    <div class="logs">
-      {{ logs }}
+    <div>
+      <input type="checkbox" id="keyboard" v-model="checkedKeyboard" :checked="checkedKeyboard">
+      <label for="keyboard">Показать клавиатуру</label>
+    </div>
+    <div v-show="checkedKeyboard">
+      <div>
+        <input id="operand1" type="radio" value="op1" v-model="checkedOperand">
+        <label for="operand1">Операнд 1</label>
+        <input id="operand2" type="radio" value="op2" v-model="checkedOperand">
+        <label for="operand2">Операнд 2</label>
+      </div>
+      <div>
+        <button
+          v-for="item of items"
+          :key="item"
+          @click="keyboardClick(item)"
+        >
+         {{ item }}
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -46,13 +43,13 @@
 export default {
   name: 'CalculatorComp',
   data: () => ({
-    op1: '0',
-    op2: '0',
+    op1: 0,
+    op2: 0,
     result: 0,
-    error: '',
     operators: ['+', '-', '/', '*', '^', '%'],
-    collection: ['1', '2', '3', '4'],
-    logs: {},
+    items: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    checkedKeyboard: false,
+    checkedOperand: 'op1',
   }),
   methods: {
     sum() {
@@ -83,7 +80,6 @@ export default {
     },
 
     calculate(operation) {
-      this.error = '';
       // eslint-disable-next-line default-case
       switch (operation) {
         case '+':
@@ -105,30 +101,16 @@ export default {
           this.trunc();
           break;
       }
-
-      // this.logs[Date.now()] = `${op1} ${operation} ${op2}`;
-      // не при каждом нажатии срабатывала кнопка
-      // this.logs = { ...this.logs, [Date.now()]: `${this.op1} ${operation} ${this.op2}` };
-      // Vue set();
-      this.$set(this.logs, Date.now(), `${this.op1} ${operation} ${this.op2}`);
     },
-
-    fib(n) {
-      return n <= 1 ? n : this.fib(n - 1) + this.fib(n - 2);
+    keyboardClick(item) {
+      if (typeof this[this.checkedOperand] === 'number') {
+        this[this.checkedOperand] = Number(`${this[this.checkedOperand]} ${item}`);
+      }
     },
-
-    fib2() {
-      console.log('metod');
-      const { op2 } = this;
-      return this.fib(op2);
-    },
-  },
-
-  computed: {
-    fib1() {
-      console.log('computed');
-      const { op1 } = this;
-      return this.fib(op1);
+    backSpace() {
+      if (typeof this[this.checkedOperand] === 'number') {
+        this[this.checkedOperand] = Math.trunc(this[this.checkedOperand] / 10);
+      }
     },
   },
 };

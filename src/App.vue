@@ -4,9 +4,9 @@
     <HelloWorld msg="Welcome to Your Vue.js App"/>
 <!--    <button v-on:click="counter++">Increase</button>-->
 <!--    <button @click="counter++">Increase</button>-->
-        <button @click="increase(2, $event)">Increase</button>
-        <button @click="resetCounter">Reset Counter</button>
-    {{ counter }}
+<!--        <button @click="increase(2, $event)">Increase</button>-->
+<!--        <button @click="resetCounter">Reset Counter</button>-->
+<!--    {{ counter }}-->
 <!--    <label for="test">test-->
 <!--      <input-->
 <!--        id="test"-->
@@ -29,25 +29,25 @@ export default {
     CalculatorComp,
     HelloWorld,
   },
-  data: () => ({
-    counter: 0,
-  }),
-  methods: {
-    increase(step, event) {
-      // eslint-disable-next-line no-plusplus
-      this.counter += step;
-      console.log(event);
-    },
-    resetCounter() {
-      this.counter = 0;
-    },
-    blur() {
-      console.log('blur');
-    },
-    focus() {
-      console.log('focus');
-    },
-  },
+  // data: () => ({
+  //   counter: 0,
+  // }),
+  // methods: {
+  //   increase(step, event) {
+  //     // eslint-disable-next-line no-plusplus
+  //     this.counter += step;
+  //     console.log(event);
+  //   },
+  //   resetCounter() {
+  //     this.counter = 0;
+  //   },
+  //   blur() {
+  //     console.log('blur');
+  //   },
+  //   focus() {
+  //     console.log('focus');
+  //   },
+  // },
 };
 </script>
 
